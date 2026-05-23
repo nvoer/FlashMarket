@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1A2026;
+}
+
+.top-bar {
+    background-color: #212932;
+    height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Логотип */
+.logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 22px;  
+    height: 22px; 
+    display: block;
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.logo-text {
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+/* Контейнер для вкладок */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 400px;   /* Твой фиксированный отступ */
+    margin-right: auto;  
+}
+
+/* Стили для каждой вкладки */
+.nav-item {
+    font-family: 'Inter', sans-serif;
+    color: #9aa6b2;
+    font-size: 14px;
+    font-weight: 600;      /* <--- ТЕКСТ СТАЛ ЖИРНЕЕ */
+    text-decoration: none;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+/* Эффект при наведении мышки на вкладку */
+.nav-item:hover {
+    color: #ffffff;
+}
+
+/* Активная вкладка */
+.nav-item.active {
+    color: #ffffff;
+}
+
+/* Базовая заготовка полоски под КАЖДОЙ вкладкой (сжата в точку по центру) */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    background-color: #2f83e4;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    
+    /* Магия анимации из центра */
+    transform: scaleX(0);             /* Изначально полоска полностью сжата до 0 */
+    transform-origin: center;         /* Точка деформации находится строго по центру */
+    transition: transform 0.25s ease; /* Скорость расширения полоски */
+}
+
+/* Когда вкладка получает класс .active, полоска расширяется во всю ширину */
+.nav-item.active::after {
+    transform: scaleX(1);             /* Расширяется влево и вправо до исходного размера */
+}
