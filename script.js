@@ -1,6 +1,12 @@
 // Находим элементы навигации и контейнеры контента
 const navItems = document.querySelectorAll('.nav-item');
 const tabContents = document.querySelectorAll('.tab-content');
+const dropdowns = document.querySelectorAll('.dropdown-wrapper');
+
+// Функция для закрытия всех открытых выпадающих списков
+function closeAllDropdowns() {
+    dropdowns.forEach(d => d.classList.remove('is-open'));
+}
 
 // Функция для активации нужной вкладки по её ID
 function switchTab(tabId) {
@@ -21,7 +27,7 @@ function switchTab(tabId) {
         if(targetContent) targetContent.classList.add('active');
     }
     
-    closeAllDropdowns(); // Закрываем открытые меню при переключении
+    closeAllDropdowns(); // Теперь функция существует выше и не вызывает ошибку
 }
 
 // Функция, которая смотрит на адресную строку и включает нужную вкладку
@@ -59,8 +65,6 @@ document.addEventListener('DOMContentLoaded', handleRouting);
 
 
 /* ЛОГИКА РАБОТЫ ВЫПАДАЮЩИХ СПИСКОВ */
-const dropdowns = document.querySelectorAll('.dropdown-wrapper');
-
 dropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector('.dropdown-control');
     const items = dropdown.querySelectorAll('.dropdown-item');
@@ -90,10 +94,6 @@ dropdowns.forEach(dropdown => {
         });
     });
 });
-
-function closeAllDropdowns() {
-    dropdowns.forEach(d => d.classList.remove('is-open'));
-}
 
 document.addEventListener('click', closeAllDropdowns);
 
