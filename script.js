@@ -2,27 +2,60 @@
 const navItems = document.querySelectorAll('.nav-item');
 const tabContents = document.querySelectorAll('.tab-content');
 
+// Функция для активации нужной вкладки по её ID
+function switchTab(tabId) {
+    // Убираем активный класс у всех кнопок меню
+    navItems.forEach(nav => nav.classList.remove('active'));
+    // Скрываем все вкладки контента
+    tabContents.forEach(content => content.classList.remove('active'));
+
+    if (tabId === 'tab-usernames') {
+        const targetBtn = document.getElementById('tab-usernames');
+        const targetContent = document.getElementById('content-usernames');
+        if(targetBtn) targetBtn.classList.add('active');
+        if(targetContent) targetContent.classList.add('active');
+    } else if (tabId === 'tab-gifts') {
+        const targetBtn = document.getElementById('tab-gifts');
+        const targetContent = document.getElementById('content-gifts');
+        if(targetBtn) targetBtn.classList.add('active');
+        if(targetContent) targetContent.classList.add('active');
+    }
+    
+    closeAllDropdowns(); // Закрываем открытые меню при переключении
+}
+
+// Функция, которая смотрит на адресную строку и включает нужную вкладку
+function handleRouting() {
+    const path = window.location.pathname;
+
+    if (path === '/gifts') {
+        switchTab('tab-gifts');
+    } else {
+        // По умолчанию или если `/usernames` — включаем юзернеймы
+        switchTab('tab-usernames');
+    }
+}
+
+// Вешаем события клика на вкладки
 navItems.forEach(item => {
     item.addEventListener('click', function(event) {
-        event.preventDefault();
+        event.preventDefault(); // Отменяем стандартный переход по ссылке
 
-        // Переключаем активный класс у кнопок меню
-        navItems.forEach(nav => nav.classList.remove('active'));
-        this.classList.add('active');
-
-        // Скрываем все вкладки контента
-        tabContents.forEach(content => content.classList.remove('active'));
-
-        // Показываем нужный контент в зависимости от кликнутой вкладки
         if (this.id === 'tab-usernames') {
-            document.getElementById('content-usernames').classList.add('active');
+            window.history.pushState({}, '', '/usernames'); // Меняем адрес на /usernames
+            switchTab('tab-usernames');
         } else if (this.id === 'tab-gifts') {
-            document.getElementById('content-gifts').classList.add('active');
+            window.history.pushState({}, '', '/gifts');     // Меняем адрес на /gifts
+            switchTab('tab-gifts');
         }
-        
-        closeAllDropdowns(); // Закрываем открытые меню при переключении
     });
 });
+
+// Слушаем событие «Назад/Вперед» в браузере, чтобы вкладки переключались корректно
+window.addEventListener('popstate', handleRouting);
+
+// Вызываем проверку роута сразу при загрузке страницы
+document.addEventListener('DOMContentLoaded', handleRouting);
 
 
 /* ЛОГИКА РАБОТЫ ВЫПАДАЮЩИХ СПИСКОВ */
@@ -33,10 +66,8 @@ dropdowns.forEach(dropdown => {
     const items = dropdown.querySelectorAll('.dropdown-item');
     const selectedText = dropdown.querySelector('.selected-text');
 
-    // Клик по кнопке открывает/закрывает текущий дропдаун
-    trigger.addEventListener('click', function(e) {
-        e.stopPropagation(); 
-        
+    trigger.addEventListener('click', function(event) {
+        event.stopPropagation();
         if (dropdown.classList.contains('is-open')) {
             dropdown.classList.remove('is-open');
         } else {
@@ -45,7 +76,6 @@ dropdowns.forEach(dropdown => {
         }
     });
 
-    // Выбор пункта меню
     items.forEach(item => {
         item.addEventListener('click', function() {
             selectedText.textContent = this.textContent;
