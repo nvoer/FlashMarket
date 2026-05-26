@@ -15,10 +15,11 @@
     data-userpic="false"
     data-radius="12"
     data-request-access="write"
+    data-auth-url="https://flashgrammarket.vercel.app/auth"
     data-onauth="onTelegramAuth(user)">
-    </script>
+</script>
 
-    <script>
+<script>
     function onTelegramAuth(user) {
         console.log(user)
         
@@ -26,7 +27,7 @@
         `Вы вошли как ${user.first_name}`
         )
     }
-    </script>   
+</script>   
 
 </head>
 <body>
@@ -45,7 +46,9 @@
             <a href="/gifts" class="nav-item" id="tab-gifts">Gifts</a>
         </nav>
         
-        <button class="tg-auth-button">Sign In with Telegram</button>
+        <button class="tg-auth-button" onclick="document.querySelector('script[src*=\"telegram-widget\"]').dispatchEvent(new Event('click'))">
+            Sign In with Telegram
+        </button>
     </div>
     
     <div class="tab-content active" id="content-usernames">

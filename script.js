@@ -94,3 +94,50 @@ if(viewListBtn && viewGridBtn) {
         console.log("Отображение Gifts: Сетка");
     });
 }
+
+/* ====================== TELEGRAM AUTH ====================== */
+
+function onTelegramAuth(user) {
+    console.log('Telegram user data:', user);
+    
+    // Сохраняем пользователя в localStorage
+    localStorage.setItem('telegram_user', JSON.stringify(user));
+    
+    // Показываем приветствие
+    const greeting = user.username 
+        ? `@${user.username}` 
+        : `${user.first_name} ${user.last_name || ''}`.trim();
+    
+    alert(`✅ Вы вошли как ${greeting}`);
+
+    // Отправляем данные пользователя в Supabase
+    fetch('https://mriskjpxaikulyldehnj.supabase.co/rest/v1/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'sb_publishable_kOHpzp5_HTqqS2aS5X5RNA_fNgu8rsZ',
+            'Authorization': 'Bearer sb_publishable_kOHpzp5_HTqqS2aS5X5RNA_fNgu8rsZ'
+        },
+        body: JSON.stringify({
+            telegram_id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name || null,
+            username: user.username || null,
+            photo_url: user.photo_url || null,
+            auth_date: new Date(user.auth_date * 1000).toISOString()
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('✅ Пользователь успешно сохранён в Supabase');
+        } else {
+            console.error('❌ Ошибка Supabase:', response.status);
+        }
+    })
+    .catch(error => {
+        console.error('❌ Ошибка при отправке в Supabase:', error);
+    });
+}
+
+// Делаем функцию доступной глобально (для Telegram Widget)
+window.onTelegramAuth = onTelegramAuth;
