@@ -8,7 +8,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
-    <script async src="https://oauth.telegram.org/js/telegram-login.js?5" data-client-id="8815026325" data-onauth="console.log(data)" data-request-access="write"></script>
+    <script async
+    src="https://telegram.org/js/telegram-widget.js?22"
+    data-telegram-login="FlashGramMarketBot"
+    data-size="large"
+    data-userpic="false"
+    data-radius="12"
+    data-request-access="write"
+    data-onauth="onTelegramAuth(user)">
+    </script>
+
+    <script>
+    function onTelegramAuth(user) {
+        console.log(user)
+        
+        alert(
+        `Вы вошли как ${user.first_name}`
+        )
+    }
+    </script>   
+
 </head>
 <body>
     
@@ -25,7 +44,7 @@
             <a href="/usernames" class="nav-item active" id="tab-usernames">Usernames</a>
             <a href="/gifts" class="nav-item" id="tab-gifts">Gifts</a>
         </nav>
-
+        
         <button class="tg-auth-button">Sign In with Telegram</button>
     </div>
     
@@ -52,7 +71,7 @@
                     </svg>
                     SELL
                 </button>
-
+                
                 <div class="dropdown-wrapper">
                     <div class="dropdown-control">
                         <span class="selected-text">On auction</span>
