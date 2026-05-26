@@ -1,6 +1,6 @@
 // Код Supabase
-const SUPABASE_URL = 'ТВОЙ_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'ТВОЙ_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://ihhvdhnapbleboabakhc.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_9MqWCNuRQ1reF5cyMnahNA_4_-LtTcG';
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function onTelegramAuth(user) {
