@@ -1,23 +1,13 @@
-// Код Supabase
-const SUPABASE_URL = 'https://ihhvdhnapbleboabakhc.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_9MqWCNuRQ1reF5cyMnahNA_4_-LtTcG';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-async function onTelegramAuth(user) {
-    const { data, error } = await supabase
-        .from('telegram_users')
-        .upsert([{
-            telegram_id: user.id,
-            username: user.username,
-            first_name: user.first_name,
-            avatar_url: user.photo_url
-        }], { onConflict: 'telegram_id' });
+const supabase = createClient(
+    'https://mriskjpxaikulyldehnj.supabase.co',
+    'sb_publishable_kOHpzp5_HTqqS2aS5X5RNA_fNgu8rsZ'
+)
 
-    if (error) console.error("Ошибка Supabase:", error.message);
-    else console.log("Пользователь сохранен:", data);
-}
+console.log('Supabase connected')
 
-// Твоя логика (без изменений)
+// Находим элементы навигации и контейнеры контента
 const navItems = document.querySelectorAll('.nav-item');
 const tabContents = document.querySelectorAll('.tab-content');
 
