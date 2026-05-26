@@ -7,6 +7,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script async src="https://oauth.telegram.org/js/telegram-login.js?5" 
+            data-client-id="8815026325" 
+            data-onauth="onTelegramAuth(user)" 
+            data-request-access="write">
+    </script>
 </head>
 <body>
     
@@ -23,6 +31,8 @@
             <a href="/usernames" class="nav-item active" id="tab-usernames">Usernames</a>
             <a href="/gifts" class="nav-item" id="tab-gifts">Gifts</a>
         </nav>
+
+        <button class="tg-auth-button">Sign In with Telegram</button>
     </div>
     
     <div class="tab-content active" id="content-usernames">
@@ -42,6 +52,13 @@
             <h2 class="section-title">Top Auctions</h2>
             
             <div class="filter-controls">
+                <button class="sell-button">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    SELL
+                </button>
+
                 <div class="dropdown-wrapper">
                     <div class="dropdown-control">
                         <span class="selected-text">On auction</span>

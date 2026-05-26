@@ -360,3 +360,30 @@ body {
     background-color: #181e27;
     color: #ffffff; 
 }
+
+/* КНОПКА SELL */
+.sell-button {
+    background-color: #248BDA; 
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    height: 34px; 
+    padding: 0 16px;
+    border: none;
+    border-radius: 8px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.sell-button:hover {
+    background-color: #207CC2;
+}
+
+.sell-button svg {
+    width: 14px;
+    height: 14px;
+}
