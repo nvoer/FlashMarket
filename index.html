@@ -7,18 +7,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Telegram Login Widget -->
+    
     <script async
-        src="https://telegram.org/js/telegram-widget.js"
-        data-telegram-login="FlashGramMarketBot"
-        data-size="medium"
-        data-onauth="onTelegramAuth(user)"
-        data-request-access="write">
+    src="https://telegram.org/js/telegram-widget.js?22"
+    data-telegram-login="FlashGramMarketBot"
+    data-size="large"
+    data-userpic="false"
+    data-radius="12"
+    data-request-access="write"
+    data-onauth="onTelegramAuth(user)">
     </script>
+
+    <script>
+    function onTelegramAuth(user) {
+        console.log(user)
+        
+        alert(
+        `Вы вошли как ${user.first_name}`
+        )
+    }
+    </script>   
+
 </head>
 <body>
     
@@ -35,29 +44,8 @@
             <a href="/usernames" class="nav-item active" id="tab-usernames">Usernames</a>
             <a href="/gifts" class="nav-item" id="tab-gifts">Gifts</a>
         </nav>
-
-        <!-- Кнопка входа: показывается если не вошёл, скрывается после входа -->
-        <div id="auth-area">
-            <button class="tg-auth-button" id="tg-login-btn">Sign In with Telegram</button>
-        </div>
-    </div>
-
-    <!-- Модалка с виджетом Telegram -->
-    <div id="tg-modal-overlay" class="tg-modal-overlay" style="display:none;">
-        <div class="tg-modal-box">
-            <div class="tg-modal-header">
-                <span class="tg-modal-title">Sign in with Telegram</span>
-                <button class="tg-modal-close" id="tg-modal-close">
-                    <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="tg-modal-body">
-                <p class="tg-modal-hint">Нажми кнопку ниже чтобы войти через Telegram</p>
-                <div id="tg-widget-container"></div>
-            </div>
-        </div>
+        
+        <button class="tg-auth-button">Sign In with Telegram</button>
     </div>
     
     <div class="tab-content active" id="content-usernames">
@@ -83,7 +71,7 @@
                     </svg>
                     SELL
                 </button>
-
+                
                 <div class="dropdown-wrapper">
                     <div class="dropdown-control">
                         <span class="selected-text">On auction</span>
@@ -173,6 +161,6 @@
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

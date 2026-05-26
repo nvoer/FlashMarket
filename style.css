@@ -108,7 +108,7 @@ body {
 }
 
 .hero-section {
-    max-width: 680px;
+    max-width: 680px; /* Сужаем блок до ширины строки поиска */
     margin: 0 auto;
     text-align: center;
     padding: 44px 20px 28px 20px;
@@ -174,14 +174,15 @@ body {
     color: #7D98A6;
 }
 
-/* СЕКЦИЯ С АУКЦИОНАМИ (USERNAMES) */
+
+/* СЕКЦИЯ С АУКЦИОНАМИ (USERNAMES) - выравниваем по ширине поиска */
 .auctions-container {
     width: 100%;
-    max-width: 680px;
-    margin: 0 auto;
+    max-width: 680px; /* Делаем ширину ровно как у поисковой строки */
+    margin: 0 auto;   /* Центрируем, чтобы левый край совпал с поиском */
     padding: 0 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Заголовок остается слева, фильтры улетают вправо */
     align-items: center;
 }
 
@@ -193,6 +194,7 @@ body {
 }
 
 /* СЕКЦИЯ ШАПКИ ДЛЯ GIFTS */
+/* Шапка секции Top Gifts */
 .gifts-section-header {
     width: 100%;
     max-width: none;
@@ -200,14 +202,18 @@ body {
     display: flex;
     align-items: center;
     margin-top: 36px;
+    
+    /* Важно для стабильности */
     justify-content: flex-start;
     gap: 24px;
 }
 
+/* Только заголовок "Top Gifts" */
 .gifts-section-header .section-title {
     position: relative;
-    left: 300px;
-    margin-right: auto;
+    left: 300px;                    /* ← Здесь меняй значение */
+    margin-right: auto;           /* Отталкивает фильтры вправо */
+    
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     font-size: 20px;
@@ -380,149 +386,4 @@ body {
 .sell-button svg {
     width: 14px;
     height: 14px;
-}
-
-/* ── КНОПКА SIGN IN (до входа) ── */
-.tg-auth-button {
-    background-color: #248BDA;
-    color: #ffffff;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    z-index: 2;
-    transition: background-color 0.15s ease;
-    white-space: nowrap;
-}
-
-.tg-auth-button:hover {
-    background-color: #1c7ecb;
-}
-
-/* ── АВАТАР ПОЛЬЗОВАТЕЛЯ (после входа) ── */
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.user-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #2f3b4a;
-}
-
-.user-avatar-placeholder {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #248BDA;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: #ffffff;
-    border: 2px solid #2f3b4a;
-    flex-shrink: 0;
-}
-
-.user-name {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #ffffff;
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* ── МОДАЛКА TELEGRAM LOGIN ── */
-.tg-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(4px);
-    z-index: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.tg-modal-box {
-    background: #212932;
-    border: 1px solid #2f3b4a;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 360px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-    animation: modalPop 0.18s ease;
-}
-
-@keyframes modalPop {
-    from { transform: scale(0.95) translateY(8px); opacity: 0; }
-    to   { transform: scale(1) translateY(0);      opacity: 1; }
-}
-
-.tg-modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 20px 0;
-}
-
-.tg-modal-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-}
-
-.tg-modal-close {
-    background: #242e38;
-    border: none;
-    width: 28px;
-    height: 28px;
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8393a3;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-}
-
-.tg-modal-close:hover {
-    background: #293440;
-    color: #ffffff;
-}
-
-.tg-modal-body {
-    padding: 16px 20px 22px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-}
-
-.tg-modal-hint {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    color: #8393a3;
-    text-align: center;
-}
-
-#tg-widget-container {
-    display: flex;
-    justify-content: center;
 }
