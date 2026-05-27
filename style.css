@@ -108,7 +108,7 @@ body {
 }
 
 .hero-section {
-    max-width: 680px; /* Сужаем блок до ширины строки поиска */
+    max-width: 680px;
     margin: 0 auto;
     text-align: center;
     padding: 44px 20px 28px 20px;
@@ -174,15 +174,14 @@ body {
     color: #7D98A6;
 }
 
-
-/* СЕКЦИЯ С АУКЦИОНАМИ (USERNAMES) - выравниваем по ширине поиска */
+/* СЕКЦИЯ С АУКЦИОНАМИ (USERNAMES) */
 .auctions-container {
     width: 100%;
-    max-width: 680px; /* Делаем ширину ровно как у поисковой строки */
-    margin: 0 auto;   /* Центрируем, чтобы левый край совпал с поиском */
+    max-width: 680px;
+    margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: space-between; /* Заголовок остается слева, фильтры улетают вправо */
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -194,7 +193,6 @@ body {
 }
 
 /* СЕКЦИЯ ШАПКИ ДЛЯ GIFTS */
-/* Шапка секции Top Gifts */
 .gifts-section-header {
     width: 100%;
     max-width: none;
@@ -202,25 +200,20 @@ body {
     display: flex;
     align-items: center;
     margin-top: 36px;
-    
-    /* Важно для стабильности */
     justify-content: flex-start;
     gap: 24px;
 }
 
-/* Только заголовок "Top Gifts" */
 .gifts-section-header .section-title {
     position: relative;
-    left: 300px;                    /* ← Здесь меняй значение */
-    margin-right: auto;           /* Отталкивает фильтры вправо */
-    
+    left: 300px;
+    margin-right: auto;
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     font-size: 20px;
     font-weight: 600;
 }
 
-/* Контейнер для карточек подарков */
 .gifts-container {
     max-width: 960px;
     margin: 0 auto;
@@ -297,6 +290,7 @@ body {
 
 .dropdown-item {
     color: #ffffff;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 500;
     padding: 9px 16px;
@@ -386,4 +380,333 @@ body {
 .sell-button svg {
     width: 14px;
     height: 14px;
+}
+
+/* ОВЕРЛЕЙ С РАЗМЫТИЕМ ФОНА (SELL) */
+.sell-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sell-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* МОДАЛЬНОЕ ОКНО SELL */
+.sell-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    width: 420px;
+    max-width: 90vw;
+    background-color: #212932;
+    border: 1px solid #2f3b4a;
+    border-radius: 16px;
+    z-index: 201;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+.sell-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.sell-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #2f3b4a;
+}
+
+.sell-modal-title {
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sell-modal-close {
+    background: none;
+    border: none;
+    color: #798896;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sell-modal-close:hover {
+    background-color: #2f3b4a;
+    color: #ffffff;
+}
+
+.sell-modal-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+.sell-modal-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sell-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sell-form-label {
+    color: #8393a3;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.sell-form-input {
+    height: 42px;
+    background-color: #242E38;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0 14px;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.sell-form-input:focus {
+    border-color: transparent;
+}
+
+.sell-form-input::placeholder {
+    color: #526375;
+}
+
+/* Полностью скрываем стандартные стрелки браузера */
+.sell-form-input[type=number]::-webkit-inner-spin-button, 
+.sell-form-input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.sell-form-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Стили для контейнера и кастомных стрелок */
+.custom-number-input {
+    position: relative;
+    width: 100%;
+}
+
+.custom-number-input .sell-form-input {
+    width: 100%;
+    padding-right: 36px;
+}
+
+.number-controls {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.number-btn {
+    background: transparent;
+    border: none;
+    color: #798896;
+    cursor: pointer;
+    width: 20px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.number-btn:hover {
+    color: #ffffff;
+    background-color: #2f3b4a;
+}
+
+.number-btn svg {
+    width: 12px;
+    height: 12px;
+}
+
+.sell-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid #2f3b4a;
+}
+
+.sell-modal-btn {
+    height: 38px;
+    padding: 0 18px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.15s ease;
+}
+
+.sell-modal-btn-secondary {
+    background-color: #242E38;
+    color: #ffffff;
+}
+
+.sell-modal-btn-secondary:hover {
+    background-color: #293440;
+}
+
+.sell-modal-btn-primary {
+    background-color: #248BDA;
+    color: #ffffff;
+}
+
+.sell-modal-btn-primary:hover {
+    background-color: #207CC2;
+}
+
+.sell-dropdown .dropdown-control {
+    width: 100%;
+    height: 42px;
+    background-color: #242E38;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0 14px;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    justify-content: space-between;
+}
+
+.sell-dropdown .dropdown-control:hover {
+    background-color: #293440;
+}
+
+.sell-dropdown.is-open .dropdown-control {
+    background-color: #248BDA;
+    color: #ffffff;
+}
+
+.sell-dropdown .dropdown-menu {
+    width: 100%;
+    top: calc(100% + 6px);
+    right: auto;
+    left: 0;
+}
+
+/* СЕТКА И КАРТОЧКИ ДЛЯ ВЫСТАВЛЕННЫХ ЛОТОВ */
+.lots-grid {
+    max-width: 680px;
+    margin: 24px auto 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.lot-card {
+    background-color: #242E38;
+    border: 1px solid #2f3b4a;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.lot-card:hover {
+    transform: translateY(-2px);
+    border-color: #3b4a5c;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.lot-username {
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.lot-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+}
+
+.lot-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.lot-label {
+    color: #798896;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.lot-price {
+    color: #248BDA;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.lot-price svg {
+    width: 14px;
+    height: 14px;
+    color: #F8A917;
+}
+
+.lot-duration {
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
 }

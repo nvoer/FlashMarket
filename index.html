@@ -7,31 +7,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
-    <script async
-    src="https://telegram.org/js/telegram-widget.js?22"
-    data-telegram-login="FlashGramMarketBot"
-    data-size="large"
-    data-userpic="false"
-    data-radius="12"
-    data-request-access="write"
-    data-auth-url="https://flashgrammarket.vercel.app/auth"
-    data-onauth="onTelegramAuth(user)">
-</script>
-
-<script>
-    function onTelegramAuth(user) {
-        console.log(user)
-        
-        alert(
-        `Вы вошли как ${user.first_name}`
-        )
-    }
-</script>   
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
-    
     <div class="top-bar">
         <a href="#" class="logo-link">
             <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,10 +24,6 @@
             <a href="/usernames" class="nav-item active" id="tab-usernames">Usernames</a>
             <a href="/gifts" class="nav-item" id="tab-gifts">Gifts</a>
         </nav>
-        
-        <button class="tg-auth-button" onclick="document.querySelector('script[src*=\"telegram-widget\"]').dispatchEvent(new Event('click'))">
-            Sign In with Telegram
-        </button>
     </div>
     
     <div class="tab-content active" id="content-usernames">
@@ -105,6 +80,9 @@
                 </div>
             </div>
         </div>
+
+        <div class="lots-grid" id="usernames-grid"></div>
+
     </div>
     
     <div class="tab-content" id="content-gifts">
@@ -164,6 +142,66 @@
         </div>
     </div>
     
-    <script type="module" src="script.js"></script>
+    <div id="sell-overlay" class="sell-overlay"></div>
+    
+    <div id="sell-modal" class="sell-modal">
+        <div class="sell-modal-header">
+            <h3 class="sell-modal-title">Sell Username</h3>
+            <button class="sell-modal-close" id="sell-modal-close">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="sell-modal-body">
+            <div class="sell-form-group">
+                <label class="sell-form-label">Username</label>
+                <input type="text" class="sell-form-input" placeholder="@username">
+            </div>
+            
+            <div class="sell-form-group">
+                <label class="sell-form-label">Price (Stars)</label>
+                <div class="custom-number-input">
+                    <input type="number" class="sell-form-input" placeholder="0.00" step="0.1" id="price-input">
+                    <div class="number-controls">
+                        <button type="button" class="number-btn up-btn">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="number-btn down-btn">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sell-form-group">
+                <label class="sell-form-label">Auction Duration</label>
+                <div class="dropdown-wrapper sell-dropdown">
+                    <div class="dropdown-control">
+                        <span class="selected-text">24 hours</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item active" data-value="24h">24 hours</div>
+                        <div class="dropdown-item" data-value="3d">3 days</div>
+                        <div class="dropdown-item" data-value="7d">7 days</div>
+                        <div class="dropdown-item" data-value="14d">14 days</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sell-modal-footer">
+            <button class="sell-modal-btn sell-modal-btn-secondary" id="sell-modal-cancel">Cancel</button>
+            <button class="sell-modal-btn sell-modal-btn-primary" id="sell-modal-submit">List for Sale</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

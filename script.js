@@ -1,11 +1,10 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+// Инициализация подключения к базе данных Supabase
+const supabaseUrl = 'https://ihhvdhnapbleboabakhc.supabase.co'; // <--- Замените на свое
+const supabaseKey = 'sb_publishable_9MqWCNuRQ1reF5cyMnahNA_4_-LtTcG';    // <--- Замените на свое
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const supabase = createClient(
-    'https://mriskjpxaikulyldehnj.supabase.co',
-    'sb_publishable_kOHpzp5_HTqqS2aS5X5RNA_fNgu8rsZ'
-)
-
-console.log('Supabase connected')
+// Ссылка на контейнер сетки лотов
+const lotsGrid = document.getElementById('usernames-grid');
 
 // Находим элементы навигации и контейнеры контента
 const navItems = document.querySelectorAll('.nav-item');
@@ -32,7 +31,6 @@ navItems.forEach(item => {
         closeAllDropdowns(); // Закрываем открытые меню при переключении
     });
 });
-
 
 /* ЛОГИКА РАБОТЫ ВЫПАДАЮЩИХ СПИСКОВ */
 const dropdowns = document.querySelectorAll('.dropdown-wrapper');
@@ -63,9 +61,6 @@ dropdowns.forEach(dropdown => {
             this.classList.add('active');
 
             dropdown.classList.remove('is-open');
-
-            const filterValue = this.getAttribute('data-value');
-            console.log("Выбран фильтр:", filterValue);
         });
     });
 });
@@ -76,7 +71,6 @@ function closeAllDropdowns() {
 
 document.addEventListener('click', closeAllDropdowns);
 
-
 /* ПЕРЕКЛЮЧАТЕЛЬ СЕТКИ / СПИСКА ДЛЯ ВКЛАДКИ GIFTS */
 const viewListBtn = document.getElementById('view-list-btn');
 const viewGridBtn = document.getElementById('view-grid-btn');
@@ -85,59 +79,170 @@ if(viewListBtn && viewGridBtn) {
     viewListBtn.addEventListener('click', () => {
         viewGridBtn.classList.remove('active');
         viewListBtn.classList.add('active');
-        console.log("Отображение Gifts: Список");
     });
 
     viewGridBtn.addEventListener('click', () => {
         viewListBtn.classList.remove('active');
         viewGridBtn.classList.add('active');
-        console.log("Отображение Gifts: Сетка");
     });
 }
 
-/* ====================== TELEGRAM AUTH ====================== */
+/* ═══════════════════════════════════════
+   МОДАЛЬНОЕ ОКНО SELL
+   ═══════════════════════════════════════ */
 
-function onTelegramAuth(user) {
-    console.log('Telegram user data:', user);
-    
-    // Сохраняем пользователя в localStorage
-    localStorage.setItem('telegram_user', JSON.stringify(user));
-    
-    // Показываем приветствие
-    const greeting = user.username 
-        ? `@${user.username}` 
-        : `${user.first_name} ${user.last_name || ''}`.trim();
-    
-    alert(`✅ Вы вошли как ${greeting}`);
+const sellButton = document.querySelector('.sell-button');
+const sellOverlay = document.getElementById('sell-overlay');
+const sellModal = document.getElementById('sell-modal');
+const sellModalClose = document.getElementById('sell-modal-close');
+const sellModalCancel = document.getElementById('sell-modal-cancel');
+const sellModalSubmit = document.getElementById('sell-modal-submit');
 
-    // Отправляем данные пользователя в Supabase
-    fetch('https://mriskjpxaikulyldehnj.supabase.co/rest/v1/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'sb_publishable_kOHpzp5_HTqqS2aS5X5RNA_fNgu8rsZ',
-            'Authorization': 'Bearer sb_publishable_kOHpzp5_HTqqS2aS5X5RNA_fNgu8rsZ'
-        },
-        body: JSON.stringify({
-            telegram_id: user.id,
-            first_name: user.first_name,
-            last_name: user.last_name || null,
-            username: user.username || null,
-            photo_url: user.photo_url || null,
-            auth_date: new Date(user.auth_date * 1000).toISOString()
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('✅ Пользователь успешно сохранён в Supabase');
-        } else {
-            console.error('❌ Ошибка Supabase:', response.status);
+function openSellModal() {
+    sellOverlay.classList.add('active');
+    sellModal.classList.add('active');
+    closeAllDropdowns();
+}
+
+function closeSellModal() {
+    sellOverlay.classList.remove('active');
+    sellModal.classList.remove('active');
+}
+
+if (sellButton) {
+    sellButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openSellModal();
+    });
+}
+
+if (sellModalClose) {
+    sellModalClose.addEventListener('click', closeSellModal);
+}
+
+if (sellModalCancel) {
+    sellModalCancel.addEventListener('click', closeSellModal);
+}
+
+if (sellOverlay) {
+    sellOverlay.addEventListener('click', closeSellModal);
+}
+
+// Закрытие по клавише Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sellModal.classList.contains('active')) {
+        closeSellModal();
+    }
+});
+
+/* ЛОГИКА КАСТОМНЫХ СТРЕЛОК У ИНПУТА ЦЕНЫ */
+const priceInput = document.getElementById('price-input');
+const btnUp = document.querySelector('.up-btn');
+const btnDown = document.querySelector('.down-btn');
+
+if (priceInput && btnUp && btnDown) {
+    btnUp.addEventListener('click', () => {
+        let currentValue = parseFloat(priceInput.value) || 0;
+        priceInput.value = (currentValue + 0.1).toFixed(2);
+    });
+
+    btnDown.addEventListener('click', () => {
+        let currentValue = parseFloat(priceInput.value) || 0;
+        if (currentValue > 0) {
+            priceInput.value = Math.max(0, currentValue - 0.1).toFixed(2);
         }
-    })
-    .catch(error => {
-        console.error('❌ Ошибка при отправке в Supabase:', error);
     });
 }
 
-// Делаем функцию доступной глобально (для Telegram Widget)
-window.onTelegramAuth = onTelegramAuth;
+/* Функция получения всех лотов из базы данных Supabase */
+async function fetchAndDisplayLots() {
+    if (!lotsGrid) return;
+
+    const { data: lots, error } = await supabase
+        .from('lots')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error('Ошибка при загрузке лотов:', error);
+        return;
+    }
+
+    lotsGrid.innerHTML = ''; // Очищаем контейнер
+
+    lots.forEach(lot => {
+        const card = document.createElement('div');
+        card.className = 'lot-card';
+        card.innerHTML = `
+            <div class="lot-username">${lot.username.startsWith('@') ? lot.username : '@' + lot.username}</div>
+            <div class="lot-details">
+                <div class="lot-info-block">
+                    <span class="lot-label">Price</span>
+                    <span class="lot-price">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        ${parseFloat(lot.price).toLocaleString()}
+                    </span>
+                </div>
+                <div class="lot-info-block" style="align-items: flex-end;">
+                    <span class="lot-label">Duration</span>
+                    <span class="lot-duration">${lot.duration}</span>
+                </div>
+            </div>
+        `;
+        lotsGrid.appendChild(card);
+    });
+}
+
+/* Кнопка List for Sale - сохранение в БД */
+if (sellModalSubmit) {
+    sellModalSubmit.addEventListener('click', async function() {
+        const usernameInput = document.querySelector('.sell-form-input[placeholder="@username"]');
+        const sellDropdown = document.querySelector('.sell-dropdown');
+        
+        const durationText = sellDropdown && sellDropdown.querySelector('.selected-text') 
+            ? sellDropdown.querySelector('.selected-text').textContent 
+            : '24 hours';
+
+        const username = usernameInput ? usernameInput.value.trim() : '';
+        const price = priceInput ? priceInput.value.trim() : '';
+
+        if (!username || !price) {
+            alert('Please, fill in all fields!');
+            return;
+        }
+
+        sellModalSubmit.textContent = 'Listing...';
+        sellModalSubmit.disabled = true;
+
+        const { error } = await supabase
+            .from('lots')
+            .insert([
+                { 
+                    username: username, 
+                    price: parseFloat(price), 
+                    duration: durationText 
+                }
+            ]);
+
+        sellModalSubmit.textContent = 'List for Sale';
+        sellModalSubmit.disabled = false;
+
+        if (error) {
+            console.error('Ошибка сохранения:', error);
+            alert('Error listing your item.');
+        } else {
+            if (usernameInput) usernameInput.value = '';
+            if (priceInput) priceInput.value = '';
+            
+            closeSellModal();
+            await fetchAndDisplayLots();
+        }
+    });
+}
+
+// Загружаем лоты при старте страницы
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAndDisplayLots();
+});
