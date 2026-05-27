@@ -1,46 +1,32 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-    background-color: #1A2026;
-}
+body { background-color: #1A2026; font-family: 'Inter', sans-serif; }
 
-/* Главная панель шапки */
+/* ─── TOP BAR ─── */
 .top-bar {
     background-color: #212932;
     height: 48px;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-    padding-left: 20px;
-    padding-right: 20px;
-    position: relative;             
+    justify-content: space-between;
+    padding: 0 20px;
+    position: relative;
 }
 
-/* Логотип */
 .logo-link {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     text-decoration: none;
     flex-shrink: 0;
-    z-index: 2; 
+    z-index: 2;
 }
 
-.logo-icon {
-    width: 22px;  
-    height: 22px; 
-    display: block;
-    flex-shrink: 0;
-    margin-top: 3px;
-}
+.logo-icon { width: 22px; height: 22px; display: block; flex-shrink: 0; margin-top: 3px; }
 
 .logo-text {
-    color: #ffffff;
+    color: #fff;
     font-family: 'Oswald', sans-serif;
     font-size: 22px;
     font-weight: 500;
@@ -49,19 +35,17 @@ body {
     line-height: 1;
 }
 
-/* Контейнер для вкладок */
 .nav-menu {
     display: flex;
     align-items: center;
     height: 100%;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
     z-index: 1;
 }
 
 .nav-item {
-    font-family: 'Inter', sans-serif;
     color: #8393a3;
     font-size: 14px;
     font-weight: 600;
@@ -73,11 +57,10 @@ body {
     position: relative;
     transition: color 0.2s ease;
     white-space: nowrap;
+    cursor: pointer;
 }
 
-.nav-item:hover, .nav-item.active {
-    color: #ffffff;
-}
+.nav-item:hover, .nav-item.active { color: #fff; }
 
 .nav-item::after {
     content: '';
@@ -94,56 +77,24 @@ body {
     transition: transform 0.25s ease;
 }
 
-.nav-item.active::after {
-    transform: scaleX(1);
-}
+.nav-item.active::after { transform: scaleX(1); }
 
-/* ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК */
-.tab-content {
-    display: none;
-}
+/* ─── TABS ─── */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-.tab-content.active {
-    display: block;
-}
-
+/* ─── HERO ─── */
 .hero-section {
     max-width: 680px;
     margin: 0 auto;
     text-align: center;
     padding: 44px 20px 28px 20px;
-    font-family: 'Inter', sans-serif;
 }
 
-.hero-title {
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
+.hero-title { color: #fff; font-size: 28px; font-weight: 600; margin-bottom: 12px; }
 
-.hero-subtitle {
-    color: #798896;
-    font-size: 15px;
-    line-height: 1.5;
-    margin-bottom: 24px;
-}
-
-.hero-subtitle b {
-    color: #ffffff;
-    font-weight: 500;
-}
-
-.hero-link {
-    color: #248BDA;
-    text-decoration: none;
-}
-
-/* ПОИСКОВАЯ СТРОКА */
-.search-wrapper {
-    position: relative;
-    width: 100%;
-}
+/* ─── SEARCH ─── */
+.search-wrapper { position: relative; width: 100%; }
 
 .search-icon {
     position: absolute;
@@ -163,18 +114,16 @@ body {
     border-radius: 10px;
     padding-left: 48px;
     padding-right: 16px;
-    color: #ffffff;
+    color: #fff;
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     outline: none;
     transition: border-color 0.15s ease;
 }
 
-.search-input::placeholder {
-    color: #7D98A6;
-}
+.search-input::placeholder { color: #7D98A6; }
 
-/* СЕКЦИЯ С АУКЦИОНАМИ (USERNAMES) */
+/* ─── AUCTIONS HEADER ─── */
 .auctions-container {
     width: 100%;
     max-width: 680px;
@@ -185,17 +134,133 @@ body {
     align-items: center;
 }
 
-.section-title {
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
+.section-title { color: #fff; font-size: 20px; font-weight: 600; }
+
+/* ─── TABLE HEADER ─── */
+.table-header {
+    max-width: 680px;
+    margin: 16px auto 0;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 160px 220px 28px;
+    gap: 0;
+    border-bottom: 1px solid #2a3540;
+    padding-bottom: 10px;
 }
 
-/* СЕКЦИЯ ШАПКИ ДЛЯ GIFTS */
+.table-header span {
+    color: #526375;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.th-bid, .th-ends { padding-left: 8px; }
+
+/* ─── LISTINGS ─── */
+.listings-grid {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-row {
+    display: grid;
+    grid-template-columns: 1fr 160px 220px 28px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #202c36;
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+    border-radius: 4px;
+}
+
+.listing-row:hover { background-color: #1e2830; }
+
+/* Col 1: username */
+.row-username-col { display: flex; flex-direction: column; gap: 3px; padding-right: 12px; }
+
+.row-username {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.row-link {
+    color: #248BDA;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.resale-badge {
+    display: inline-block;
+    background-color: rgba(36,139,218,0.15);
+    color: #248BDA;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+}
+
+/* Col 2: bid */
+.row-bid-col { padding-left: 8px; display: flex; flex-direction: column; gap: 3px; }
+
+.row-bid-stars {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ton-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.row-bid-usd { color: #526375; font-size: 12px; }
+
+/* Col 3: ends */
+.row-ends-col { padding-left: 8px; display: flex; flex-direction: column; gap: 3px; }
+.row-ends-countdown { color: #fff; font-size: 13px; font-weight: 500; }
+.row-ends-date { color: #526375; font-size: 12px; }
+
+/* Col 4: arrow */
+.row-arrow {
+    color: #526375;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.row-arrow svg { width: 16px; height: 16px; }
+
+/* ─── EMPTY STATE ─── */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #526375;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.empty-state-icon { font-size: 40px; margin-bottom: 12px; }
+.empty-state-title { color: #8393a3; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+
+/* ─── GIFTS ─── */
 .gifts-section-header {
     width: 100%;
-    max-width: none;
     padding: 0 40px;
     display: flex;
     align-items: center;
@@ -208,72 +273,49 @@ body {
     position: relative;
     left: 300px;
     margin-right: auto;
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
 }
 
-.gifts-container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 20px;
-}
+.gifts-container { max-width: 960px; margin: 0 auto; padding: 20px; }
 
-/* ОБЩИЕ СТИЛИ КНОПОК ФИЛЬТРОВ И ДРОПДАУНОВ */
-.filter-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Inter', sans-serif;
-}
+/* ─── FILTER CONTROLS ─── */
+.filter-controls { display: flex; align-items: center; gap: 8px; }
 
-.dropdown-wrapper {
-    position: relative;
-}
+.dropdown-wrapper { position: relative; }
 
 .dropdown-control {
-    background-color: #242E38; 
-    color: #ffffff;
+    background-color: #242E38;
+    color: #fff;
     font-size: 14px;
     font-weight: 600;
-    height: 34px; 
+    height: 34px;
     padding: 0 14px;
-    border-radius: 8px; 
+    border-radius: 8px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     cursor: pointer;
     user-select: none;
     transition: background-color 0.15s ease, color 0.15s ease;
+    border: none;
 }
 
-.dropdown-control:hover {
-    background-color: #293440;
-}
-
-.dropdown-wrapper.is-open .dropdown-control {
-    background-color: #248BDA;
-    color: #ffffff;
-}
+.dropdown-control:hover { background-color: #293440; }
+.dropdown-wrapper.is-open .dropdown-control { background-color: #248BDA; color: #fff; }
 
 .arrow-icon {
     width: 14px;
     height: 14px;
-    color: #798b9e; 
+    color: #798b9e;
     margin-top: 1px;
     transition: transform 0.2s ease, color 0.15s ease;
 }
 
-.dropdown-wrapper.is-open .arrow-icon {
-    transform: rotate(180deg);
-    color: #ffffff;
-}
+.dropdown-wrapper.is-open .arrow-icon { transform: rotate(180deg); color: #fff; }
 
 .dropdown-menu {
     position: absolute;
     top: calc(100% + 6px);
-    right: 0; 
+    right: 0;
     background-color: #242e38;
     border: 1px solid #2f3b4a;
     border-radius: 8px;
@@ -281,16 +323,13 @@ body {
     padding: 6px 0;
     z-index: 100;
     display: none;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
-.dropdown-wrapper.is-open .dropdown-menu {
-    display: block;
-}
+.dropdown-wrapper.is-open .dropdown-menu { display: block; }
 
 .dropdown-item {
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
+    color: #fff;
     font-size: 14px;
     font-weight: 500;
     padding: 9px 16px;
@@ -301,9 +340,7 @@ body {
     transition: background-color 0.15s ease;
 }
 
-.dropdown-item:hover {
-    background-color: #1c242d;
-}
+.dropdown-item:hover { background-color: #1c242d; }
 
 .dropdown-item.active::after {
     content: '';
@@ -317,6 +354,7 @@ body {
     border-bottom: 2px solid #248BDA;
 }
 
+/* ─── VIEW SWITCHERS ─── */
 .view-switchers {
     display: flex;
     align-items: center;
@@ -336,36 +374,25 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    color: #798b9e; 
+    color: #798b9e;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.view-btn svg {
-    width: 16px;
-    height: 16px;
-}
+.view-btn svg { width: 16px; height: 16px; }
+.view-btn:hover { color: #fff; }
+.view-btn.active { background-color: #181e27; color: #fff; }
 
-.view-btn:hover {
-    color: #ffffff;
-}
-
-.view-btn.active {
-    background-color: #181e27;
-    color: #ffffff; 
-}
-
-/* КНОПКА SELL */
+/* ─── SELL BUTTON ─── */
 .sell-button {
-    background-color: #248BDA; 
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
+    background-color: #248BDA;
+    color: #fff;
     font-size: 14px;
     font-weight: 600;
-    height: 34px; 
+    height: 34px;
     padding: 0 16px;
     border: none;
-    border-radius: 8px; 
+    border-radius: 8px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -373,23 +400,15 @@ body {
     transition: background-color 0.15s ease;
 }
 
-.sell-button:hover {
-    background-color: #207CC2;
-}
+.sell-button:hover { background-color: #207CC2; }
+.sell-button svg { width: 14px; height: 14px; }
 
-.sell-button svg {
-    width: 14px;
-    height: 14px;
-}
-
-/* ОВЕРЛЕЙ С РАЗМЫТИЕМ ФОНА (SELL) */
+/* ─── OVERLAY ─── */
 .sell-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0,0,0,0.5);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 200;
@@ -398,16 +417,12 @@ body {
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.sell-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
+.sell-overlay.active { opacity: 1; visibility: visible; }
 
-/* МОДАЛЬНОЕ ОКНО SELL */
+/* ─── MODAL ─── */
 .sell-modal {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%) scale(0.95);
     width: 420px;
     max-width: 90vw;
@@ -418,7 +433,7 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.5);
 }
 
 .sell-modal.active {
@@ -435,55 +450,29 @@ body {
     border-bottom: 1px solid #2f3b4a;
 }
 
-.sell-modal-title {
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-}
+.sell-modal-title { color: #fff; font-size: 18px; font-weight: 600; }
 
-.sell-modal-close {
-    background: none;
-    border: none;
-    color: #798896;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
+.sell-modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+.sell-form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.sell-form-label { color: #8393a3; font-size: 13px; font-weight: 500; }
+
+/* Input с префиксом @ */
+.input-prefix-wrap {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.sell-modal-close:hover {
-    background-color: #2f3b4a;
-    color: #ffffff;
-}
-
-.sell-modal-close svg {
-    width: 18px;
-    height: 18px;
-}
-
-.sell-modal-body {
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.sell-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.sell-form-label {
-    color: #8393a3;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
+.input-prefix {
+    position: absolute;
+    left: 14px;
+    color: #526375;
+    font-size: 14px;
     font-weight: 500;
+    pointer-events: none;
+    user-select: none;
 }
 
 .sell-form-input {
@@ -492,76 +481,71 @@ body {
     border: 1px solid transparent;
     border-radius: 8px;
     padding: 0 14px;
-    color: #ffffff;
+    color: #fff;
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     outline: none;
     transition: border-color 0.15s ease;
-}
-
-.sell-form-input:focus {
-    border-color: transparent;
-}
-
-.sell-form-input::placeholder {
-    color: #526375;
-}
-
-/* Полностью скрываем стандартные стрелки браузера */
-.sell-form-input[type=number]::-webkit-inner-spin-button, 
-.sell-form-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-}
-.sell-form-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-/* Стили для контейнера и кастомных стрелок */
-.custom-number-input {
-    position: relative;
     width: 100%;
 }
 
-.custom-number-input .sell-form-input {
-    width: 100%;
-    padding-right: 36px;
+.sell-form-input.with-prefix { padding-left: 28px; }
+
+.sell-form-input:focus { border-color: #248BDA; }
+.sell-form-input::placeholder { color: #526375; }
+
+.sell-form-input[type=number]::-webkit-inner-spin-button,
+.sell-form-input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.sell-form-input[type=number] { -moz-appearance: textfield; }
+
+/* Hint под инпутом */
+.input-hint {
+    font-size: 11px;
+    color: #e24b4a;
+    min-height: 14px;
+    display: block;
 }
+
+/* Number input */
+.custom-number-input { position: relative; width: 100%; }
+.custom-number-input .sell-form-input { padding-right: 36px; }
 
 .number-controls {
     position: absolute;
-    right: 8px;
-    top: 50%;
+    right: 8px; top: 50%;
     transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    display: flex; flex-direction: column; gap: 2px;
 }
 
 .number-btn {
-    background: transparent;
-    border: none;
-    color: #798896;
-    cursor: pointer;
-    width: 20px;
-    height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: transparent; border: none;
+    color: #798896; cursor: pointer;
+    width: 20px; height: 14px;
+    display: flex; align-items: center; justify-content: center;
     border-radius: 4px;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.number-btn:hover {
-    color: #ffffff;
-    background-color: #2f3b4a;
+.number-btn:hover { color: #fff; background-color: #2f3b4a; }
+.number-btn svg { width: 12px; height: 12px; }
+
+/* Sell dropdown */
+.sell-dropdown .dropdown-control {
+    width: 100%; height: 42px;
+    background-color: #242E38;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0 14px;
+    color: #fff;
+    font-size: 14px; font-weight: 400;
+    justify-content: space-between;
 }
 
-.number-btn svg {
-    width: 12px;
-    height: 12px;
-}
+.sell-dropdown .dropdown-control:hover { background-color: #293440; }
+.sell-dropdown.is-open .dropdown-control { background-color: #248BDA; color: #fff; }
+.sell-dropdown .dropdown-menu { width: 100%; top: calc(100% + 6px); right: auto; left: 0; }
 
+/* Footer */
 .sell-modal-footer {
     display: flex;
     justify-content: flex-end;
@@ -571,142 +555,36 @@ body {
 }
 
 .sell-modal-btn {
-    height: 38px;
-    padding: 0 18px;
+    height: 38px; padding: 0 18px;
     border-radius: 8px;
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; border: none;
     transition: background-color 0.15s ease;
 }
 
-.sell-modal-btn-secondary {
-    background-color: #242E38;
-    color: #ffffff;
-}
+.sell-modal-btn-secondary { background-color: #242E38; color: #fff; }
+.sell-modal-btn-secondary:hover { background-color: #293440; }
+.sell-modal-btn-primary { background-color: #248BDA; color: #fff; }
+.sell-modal-btn-primary:hover { background-color: #207CC2; }
 
-.sell-modal-btn-secondary:hover {
-    background-color: #293440;
-}
-
-.sell-modal-btn-primary {
-    background-color: #248BDA;
-    color: #ffffff;
-}
-
-.sell-modal-btn-primary:hover {
-    background-color: #207CC2;
-}
-
-.sell-dropdown .dropdown-control {
-    width: 100%;
-    height: 42px;
-    background-color: #242E38;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    padding: 0 14px;
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    justify-content: space-between;
-}
-
-.sell-dropdown .dropdown-control:hover {
-    background-color: #293440;
-}
-
-.sell-dropdown.is-open .dropdown-control {
-    background-color: #248BDA;
-    color: #ffffff;
-}
-
-.sell-dropdown .dropdown-menu {
-    width: 100%;
-    top: calc(100% + 6px);
-    right: auto;
-    left: 0;
-}
-
-/* СЕТКА И КАРТОЧКИ ДЛЯ ВЫСТАВЛЕННЫХ ЛОТОВ */
-.lots-grid {
-    max-width: 680px;
-    margin: 24px auto 40px auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-}
-
-.lot-card {
-    background-color: #242E38;
+/* ─── TOAST ─── */
+.toast {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background-color: #212932;
     border: 1px solid #2f3b4a;
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px; font-weight: 500;
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
 
-.lot-card:hover {
-    transform: translateY(-2px);
-    border-color: #3b4a5c;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-.lot-username {
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    word-break: break-all;
-}
-
-.lot-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: auto;
-}
-
-.lot-info-block {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.lot-label {
-    color: #798896;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-}
-
-.lot-price {
-    color: #248BDA;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.lot-price svg {
-    width: 14px;
-    height: 14px;
-    color: #F8A917;
-}
-
-.lot-duration {
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #34c474; flex-shrink: 0; }

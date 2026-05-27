@@ -7,201 +7,227 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-
 <body>
-    <div class="top-bar">
-        <a href="#" class="logo-link">
-            <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 8 L92 74 L80 88 L20 88 L8 74 Z" fill="#F0F0F0"/>
-                <path d="M50 36 L75 75 L25 75 Z" fill="#C8C8C8"/>
+
+<div class="top-bar">
+    <a href="#" class="logo-link">
+        <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 8 L92 74 L80 88 L20 88 L8 74 Z" fill="#F0F0F0"/>
+            <path d="M50 36 L75 75 L25 75 Z" fill="#C8C8C8"/>
+        </svg>
+        <span class="logo-text">FLASHMARKET</span>
+    </a>
+    <nav class="nav-menu">
+        <a class="nav-item active" id="tab-usernames">Usernames</a>
+        <a class="nav-item" id="tab-gifts">Gifts</a>
+    </nav>
+</div>
+
+<!-- ═══ TAB: USERNAMES ═══ -->
+<div class="tab-content active" id="content-usernames">
+    <div class="hero-section">
+        <h1 class="hero-title">Buy and Sell Usernames</h1>
+        <div class="search-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.5"/>
+                <path d="M16 16 L21 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
             </svg>
-            <span class="logo-text">FLASHMARKET</span>
-        </a>
-        
-        <nav class="nav-menu">
-            <a href="/usernames" class="nav-item active" id="tab-usernames">Usernames</a>
-            <a href="/gifts" class="nav-item" id="tab-gifts">Gifts</a>
-        </nav>
+            <input type="text" class="search-input" id="search-input" placeholder="Enter a Telegram username...">
+        </div>
     </div>
-    
-    <div class="tab-content active" id="content-usernames">
-        <div class="hero-section">
-            <h1 class="hero-title">Buy and Sell Usernames</h1>
-            
-            <div class="search-wrapper">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.5"/>
-                    <path d="M16 16 L21 21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-                <input type="text" class="search-input" placeholder="Enter a Telegram username...">
-            </div>
-        </div>
-        
-        <div class="auctions-container">
-            <h2 class="section-title">Top Auctions</h2>
-            
-            <div class="filter-controls">
-                <button class="sell-button">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                    SELL
-                </button>
-                
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-control">
-                        <span class="selected-text">On auction</span>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-item active" data-value="auction">On auction</div>
-                        <div class="dropdown-item" data-value="sold">Sold</div>
-                        <div class="dropdown-item" data-value="sale">For sale</div>
-                    </div>
-                </div>
-                
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-control">
-                        <span class="selected-text">Price high to low</span>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-item active" data-value="high">Price high to low</div>
-                        <div class="dropdown-item" data-value="low">Price low to high</div>
-                        <div class="dropdown-item" data-value="recent">Recently listed</div>
-                        <div class="dropdown-item" data-value="ending">Ending soon</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="lots-grid" id="usernames-grid"></div>
-
-    </div>
-    
-    <div class="tab-content" id="content-gifts">
-        <div class="gifts-section-header">
-            <h2 class="section-title">Top Gifts</h2>
-            
-            <div class="filter-controls">
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-control">
-                        <span class="selected-text">All gifts</span>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 9 L12 15 L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-item active" data-value="all">All gifts</div>
-                        <div class="dropdown-item" data-value="auction">On auction</div>
-                        <div class="dropdown-item" data-value="sold">Sold</div>
-                        <div class="dropdown-item" data-value="sale">For sale</div>
-                    </div>
-                </div>
-                
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-control">
-                        <span class="selected-text">Price high to low</span>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 9 L12 15 L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-item active" data-value="high">Price high to low</div>
-                        <div class="dropdown-item" data-value="low">Price low to high</div>
-                        <div class="dropdown-item" data-value="recent">Recently listed</div>
-                        <div class="dropdown-item" data-value="ending">Ending soon</div>
-                    </div>
-                </div>
-                
-                <div class="view-switchers">
-                    <button class="view-btn" id="view-list-btn">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 6H21M8 12H21M8 18H21M3 6H3.01M3 12H3.01M3 18H3.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <button class="view-btn active" id="view-grid-btn">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                            <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                            <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                            <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="gifts-container">
-        </div>
-    </div>
-    
-    <div id="sell-overlay" class="sell-overlay"></div>
-    
-    <div id="sell-modal" class="sell-modal">
-        <div class="sell-modal-header">
-            <h3 class="sell-modal-title">Sell Username</h3>
-            <button class="sell-modal-close" id="sell-modal-close">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    <div class="auctions-container">
+        <h2 class="section-title">Top Auctions</h2>
+        <div class="filter-controls">
+            <button class="sell-button" id="sell-btn">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
                 </svg>
+                SELL
             </button>
-        </div>
-        <div class="sell-modal-body">
-            <div class="sell-form-group">
-                <label class="sell-form-label">Username</label>
-                <input type="text" class="sell-form-input" placeholder="@username">
-            </div>
-            
-            <div class="sell-form-group">
-                <label class="sell-form-label">Price (Stars)</label>
-                <div class="custom-number-input">
-                    <input type="number" class="sell-form-input" placeholder="0.00" step="0.1" id="price-input">
-                    <div class="number-controls">
-                        <button type="button" class="number-btn up-btn">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        <button type="button" class="number-btn down-btn">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
+            <div class="dropdown-wrapper">
+                <div class="dropdown-control">
+                    <span class="selected-text">On auction</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item active" data-value="auction">On auction</div>
+                    <div class="dropdown-item" data-value="sold">Sold</div>
+                    <div class="dropdown-item" data-value="sale">For sale</div>
                 </div>
             </div>
-
-            <div class="sell-form-group">
-                <label class="sell-form-label">Auction Duration</label>
-                <div class="dropdown-wrapper sell-dropdown">
-                    <div class="dropdown-control">
-                        <span class="selected-text">24 hours</span>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-menu">
-                        <div class="dropdown-item active" data-value="24h">24 hours</div>
-                        <div class="dropdown-item" data-value="3d">3 days</div>
-                        <div class="dropdown-item" data-value="7d">7 days</div>
-                        <div class="dropdown-item" data-value="14d">14 days</div>
-                    </div>
+            <div class="dropdown-wrapper">
+                <div class="dropdown-control">
+                    <span class="selected-text">Price high to low</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item active" data-value="high">Price high to low</div>
+                    <div class="dropdown-item" data-value="low">Price low to high</div>
+                    <div class="dropdown-item" data-value="recent">Recently listed</div>
+                    <div class="dropdown-item" data-value="ending">Ending soon</div>
                 </div>
             </div>
-        </div>
-        <div class="sell-modal-footer">
-            <button class="sell-modal-btn sell-modal-btn-secondary" id="sell-modal-cancel">Cancel</button>
-            <button class="sell-modal-btn sell-modal-btn-primary" id="sell-modal-submit">List for Sale</button>
         </div>
     </div>
-    
-    <script src="script.js"></script>
+
+    <!-- Шапка таблицы — всегда видна -->
+    <div class="table-header">
+        <span class="th-username">Username</span>
+        <span class="th-bid">Minimum bid</span>
+        <span class="th-ends">Auction ends in</span>
+        <span class="th-arrow"></span>
+    </div>
+
+    <div class="listings-grid" id="listings-grid">
+        <div class="empty-state">
+            <div class="empty-state-icon">📋</div>
+            <div class="empty-state-title">No listings yet</div>
+            Be the first to list a username for sale — click the SELL button above
+        </div>
+    </div>
+</div>
+
+<!-- ═══ TAB: GIFTS ═══ -->
+<div class="tab-content" id="content-gifts">
+    <div class="gifts-section-header">
+        <h2 class="section-title">Top Gifts</h2>
+        <div class="filter-controls">
+            <div class="dropdown-wrapper">
+                <div class="dropdown-control">
+                    <span class="selected-text">All gifts</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9 L12 15 L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item active" data-value="all">All gifts</div>
+                    <div class="dropdown-item" data-value="auction">On auction</div>
+                    <div class="dropdown-item" data-value="sold">Sold</div>
+                    <div class="dropdown-item" data-value="sale">For sale</div>
+                </div>
+            </div>
+            <div class="dropdown-wrapper">
+                <div class="dropdown-control">
+                    <span class="selected-text">Price high to low</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9 L12 15 L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item active" data-value="high">Price high to low</div>
+                    <div class="dropdown-item" data-value="low">Price low to high</div>
+                    <div class="dropdown-item" data-value="recent">Recently listed</div>
+                    <div class="dropdown-item" data-value="ending">Ending soon</div>
+                </div>
+            </div>
+            <div class="view-switchers">
+                <button class="view-btn" id="view-list-btn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M8 6H21M8 12H21M8 18H21M3 6H3.01M3 12H3.01M3 18H3.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="view-btn active" id="view-grid-btn">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="gifts-container">
+        <div class="empty-state">
+            <div class="empty-state-icon">🎁</div>
+            <div class="empty-state-title">No gifts listed yet</div>
+            Gifts marketplace coming soon
+        </div>
+    </div>
+</div>
+
+<!-- ═══ OVERLAY ═══ -->
+<div id="sell-overlay" class="sell-overlay"></div>
+
+<!-- ═══ MODAL SELL ═══ -->
+<div id="sell-modal" class="sell-modal">
+    <div class="sell-modal-header">
+        <h3 class="sell-modal-title">Sell Username</h3>
+    </div>
+    <div class="sell-modal-body">
+        <div class="sell-form-group">
+            <label class="sell-form-label">Username to sell</label>
+            <div class="input-prefix-wrap">
+                <span class="input-prefix">@</span>
+                <input type="text" class="sell-form-input with-prefix" id="input-username" placeholder="username" maxlength="32" autocomplete="off" spellcheck="false">
+            </div>
+            <span class="input-hint" id="username-hint"></span>
+        </div>
+
+        <div class="sell-form-group">
+            <label class="sell-form-label">Your Telegram username (seller)</label>
+            <div class="input-prefix-wrap">
+                <span class="input-prefix">@</span>
+                <input type="text" class="sell-form-input with-prefix" id="input-seller" placeholder="yourusername" maxlength="32" autocomplete="off" spellcheck="false">
+            </div>
+            <span class="input-hint" id="seller-hint"></span>
+        </div>
+
+        <div class="sell-form-group">
+            <label class="sell-form-label">Minimum bid (Stars ⭐)</label>
+            <div class="custom-number-input">
+                <input type="number" class="sell-form-input" id="input-price" placeholder="0" step="1" min="1">
+                <div class="number-controls">
+                    <button type="button" class="number-btn" id="price-up">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="number-btn" id="price-down">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sell-form-group">
+            <label class="sell-form-label">Auction Duration</label>
+            <div class="dropdown-wrapper sell-dropdown" id="duration-dropdown">
+                <div class="dropdown-control">
+                    <span class="selected-text">24 hours</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item active" data-value="86400">24 hours</div>
+                    <div class="dropdown-item" data-value="259200">3 days</div>
+                    <div class="dropdown-item" data-value="604800">7 days</div>
+                    <div class="dropdown-item" data-value="1209600">14 days</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sell-modal-footer">
+        <button class="sell-modal-btn sell-modal-btn-secondary" id="sell-modal-cancel">Cancel</button>
+        <button class="sell-modal-btn sell-modal-btn-primary" id="sell-modal-submit">List for Sale</button>
+    </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast">
+    <div class="toast-dot"></div>
+    <span id="toast-text">Listed successfully!</span>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
